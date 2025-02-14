@@ -1,4 +1,4 @@
-package br.com.texsistemas.financemanager.domain.category;
+package br.com.texsistemas.financemanager.domain.model.category;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

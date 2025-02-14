@@ -1,7 +1,7 @@
-package br.com.texsistemas.financemanager.domain.transaction;
+package br.com.texsistemas.financemanager.domain.model.transaction;
 
-import br.com.texsistemas.financemanager.domain.account.Account;
-import br.com.texsistemas.financemanager.domain.category.Category;
+import br.com.texsistemas.financemanager.domain.model.account.Account;
+import br.com.texsistemas.financemanager.domain.model.category.Category;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
