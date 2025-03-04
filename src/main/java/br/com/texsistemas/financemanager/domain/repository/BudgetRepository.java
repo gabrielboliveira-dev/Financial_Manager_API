@@ -1,6 +1,6 @@
 package br.com.texsistemas.financemanager.domain.repository;
 
-import br.com.texsistemas.financemanager.domain.model.budget.Budget;
+import br.com.texsistemas.financemanager.domain.model.Budget;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
