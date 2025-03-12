@@ -1,64 +1,38 @@
 package br.com.texsistemas.financemanager.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import java.util.Date;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table(name = "user")
 @Entity
+@Table(name = "users", schema = "public")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false, length = 100)
     private String name;
+
+    @Column(nullable = false, unique = true, length = 150)
     private String email;
+
+    @Column(nullable = false)
     private String password;
-    private Date date;
 
-    // Getters
-    public UUID getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    // Setters
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setPassword(String rawPassword) {
+        this.password = new BCryptPasswordEncoder().encode(rawPassword);
     }
 }

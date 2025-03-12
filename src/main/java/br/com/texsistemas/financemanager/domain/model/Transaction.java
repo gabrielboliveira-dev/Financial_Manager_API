@@ -1,97 +1,45 @@
-
 package br.com.texsistemas.financemanager.domain.model;
 
-import br.com.texsistemas.financemanager.domain.model.Account;
-import br.com.texsistemas.financemanager.domain.model.Category;
 import jakarta.persistence.*;
-import java.util.Date;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table(name = "transaction")
 @Entity
+@Table(name = "transaction", schema = "public")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Transaction {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @Column(nullable = false, length = 255)
     private String description;
-    private Float value; //
-    private Date date;
+
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal value;
+
+    @Column(nullable = false)
+    private LocalDateTime date;
+
+    @Column(nullable = false, length = 50)
     private String type;
+
+    @Column(nullable = false, length = 50)
     private String status;
-
-    // Getters
-    public UUID getId() {
-        return id;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Float getValue() {
-        return value;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    // Setters
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setValue(Float value) {
-        this.value = value;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

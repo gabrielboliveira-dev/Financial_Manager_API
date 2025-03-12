@@ -1,83 +1,39 @@
 package br.com.texsistemas.financemanager.domain.model;
 
-import br.com.texsistemas.financemanager.domain.model.User;
 import jakarta.persistence.*;
-import java.util.Date;
+import lombok.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
-@Table(name = "account")
 @Entity
+@Table(name = "account", schema = "public")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(nullable = false, length = 100)
     private String name;
+
+    @Column(nullable = false, length = 50)
     private String type;
-    private Float openingBalance;
+
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal openingBalance;
+
+    @Column(nullable = false, length = 10)
     private String coin;
-    private Date date;
 
-    // Getters
-    public UUID getId() {
-        return id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public Float getOpeningBalance() {
-        return openingBalance;
-    }
-
-    public String getCoin() {
-        return coin;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    // Setters
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setOpeningBalance(Float openingBalance) {
-        this.openingBalance = openingBalance;
-    }
-
-    public void setCoin(String coin) {
-        this.coin = coin;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    @Column(nullable = false)
+    private LocalDate date;
 }

@@ -1,77 +1,37 @@
 package br.com.texsistemas.financemanager.domain.model;
 
-import br.com.texsistemas.financemanager.domain.model.User;
 import jakarta.persistence.*;
-import java.util.Date;
+import lombok.*;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
-@Table(name = "budget")
 @Entity
+@Table(name = "budget", schema = "public")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Budget {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    private Float limit;
-    private Date dateStart;
-    private Date dateEnd;
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal limitValue;
 
-    // Getters
-    public UUID getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    private LocalDate dateStart;
 
-    public User getUser() {
-        return user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public Float getLimit() {
-        return limit;
-    }
-
-    public Date getDateStart() {
-        return dateStart;
-    }
-
-    public Date getDateEnd() {
-        return dateEnd;
-    }
-
-    // Setters
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public void setLimit(Float limit) {
-        this.limit = limit;
-    }
-
-    public void setDateStart(Date dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public void setDateEnd(Date dateEnd) {
-        this.dateEnd = dateEnd;
-    }
+    @Column(nullable = false)
+    private LocalDate dateEnd;
 }
