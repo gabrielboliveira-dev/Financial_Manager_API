@@ -1,4 +1,15 @@
 package br.com.texsistemas.financemanager.dto;
 
-public class TransactionDTO {
-}
+import java.util.UUID;
+import java.util.Date;
+
+public record TransactionDTO(
+        UUID id,
+        UUID accountId,
+        UUID categoryId,
+        String description,
+        Float value,
+        Date date,
+        String type,
+        String status
+) {}

@@ -1,4 +1,10 @@
 package br.com.texsistemas.financemanager.dto;
 
-public class CategoryDTO {
-}
+import java.util.UUID;
+
+public record CategoryDTO(
+        UUID id,
+        String name,
+        String description,
+        String type
+) {}
