@@ -34,4 +34,8 @@ public class Budget {
 
     @Column(nullable = false)
     private LocalDate dateEnd;
+
+    public Float getLimit() {
+        return null;
+    }
 }

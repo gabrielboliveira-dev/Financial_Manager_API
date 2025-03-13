@@ -6,6 +6,6 @@ public record AccountDTO(
         UUID id,
         String name,
         String type,
-        Float openingBalance,
+        java.math.BigDecimal openingBalance,
         String coin
 ) {}
