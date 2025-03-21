@@ -5,6 +5,6 @@ import java.util.UUID;
 public record UserDTO(
         UUID id,
         String name,
-        String email
+        String email,
+        String cpf // Adicionado o campo CPF
 ) {}
-
