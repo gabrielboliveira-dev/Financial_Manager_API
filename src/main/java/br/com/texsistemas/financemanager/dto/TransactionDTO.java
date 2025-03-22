@@ -15,6 +15,4 @@ public record TransactionDTO(
         String type,
         String status
 ) {
-    public TransactionDTO(UUID id, UUID id1, UUID id2, String description, BigDecimal value, LocalDateTime date, String type, String status) {
-    }
 }

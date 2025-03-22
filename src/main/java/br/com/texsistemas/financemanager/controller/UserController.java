@@ -2,9 +2,11 @@ package br.com.texsistemas.financemanager.controller;
 
 import br.com.texsistemas.financemanager.domain.exception.BusinessException;
 import br.com.texsistemas.financemanager.domain.model.User;
+import br.com.texsistemas.financemanager.dto.ErrorMessage;
 import br.com.texsistemas.financemanager.dto.UserDTO;
 import br.com.texsistemas.financemanager.domain.service.UserService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +17,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll() {
@@ -45,16 +44,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> save(@Valid @RequestBody User user) {
+    public ResponseEntity<?> save(@Valid @RequestBody User user) {
         try {
             UserDTO savedUser = userService.save(user);
-            URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
-                    .path("/{id}")
-                    .buildAndExpand(savedUser.getId())
-                    .toUri();
-            return ResponseEntity.created(uri).body(savedUser);
+            return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
         } catch (BusinessException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Or a more specific error DTO
+            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST); // Or a more specific error DTO
         }
     }
 
