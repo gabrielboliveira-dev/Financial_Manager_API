@@ -25,7 +25,7 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
-
+    //Buscar utilizadores ativos, quando eu encontro, converto em DTO para criar um UserDTO, coleto os UserDTOs numa lista e retorno.
     @Transactional(readOnly = true)
     public List<UserDTO> findAll() {
         return userRepository.findByAtivoTrue().stream()
@@ -33,18 +33,23 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    //Busco um utilizador ativo pelo seu ‘ID’, caso eu encontre, converto em UserDTO.
     @Transactional(readOnly = true)
     public Optional<UserDTO> findById(UUID id) {
         return userRepository.findByIdAndAtivoTrue(id)
                 .map(this::convertToDTO);
     }
 
+    //Busco um utilizador ativo pelo seu endereço eletrónico, caso eu encontre, converto em UserDTO.
     @Transactional(readOnly = true)
     public Optional<UserDTO> findByEmail(String email) {
         return userRepository.findByEmailAndAtivoTrue(email)
                 .map(this::convertToDTO);
     }
 
+    // Verifica se já existe um utilizador com o mesmo endereço eletrónico ou CPF.
+    // Se existir, lança uma exceção de negócio.
+    // Defino data de criação, se está ativo, criptógrafo a senha para salvar o utilizador no UserDTO.
     @Transactional
     public UserDTO save(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
@@ -61,6 +66,7 @@ public class UserService {
         return convertToDTO(savedUser);
     }
 
+    //Busco o utilizador pelo 'ID', faça analises do endereço eletrónico e CPF, se houver alteração e não for encontrado, lanço exceções.
     @Transactional
     public UserDTO update(UUID id, User updatedUser) {
         Optional<User> currentUserOptional = userRepository.findByIdAndAtivoTrue(id);
@@ -79,6 +85,9 @@ public class UserService {
             throw new BusinessException("O CPF não pode ser alterado.");
         }
 
+        // Copia as propriedades do updatedUser para o currentUser, ignorando os campos que não devem ser alterados (‘id’, email, cpf, createdAt, ativo).
+        // Verifica se uma nova senha foi fornecida. Se sim, criptógrafa a nova senha.
+        // Salva as alterações no usuário. E Converte o usuário atualizado para UserDTO.
         BeanUtils.copyProperties(updatedUser, currentUser, "id", "email", "cpf", "createdAt", "ativo");
         if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
             currentUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
@@ -87,6 +96,9 @@ public class UserService {
         return convertToDTO(savedUser);
     }
 
+    // Busca o usuário ativo pelo ‘ID’ se o usuário foi encontrado, pego ele.
+    // Defino o status do usuário como inativo e salvo as alterações no banco de dados.
+    // Se não encontro, lanço uma exceção.
     @Transactional
     public void delete(UUID id) {
         Optional<User> userOptional = userRepository.findByIdAndAtivoTrue(id);
@@ -99,6 +111,7 @@ public class UserService {
         }
     }
 
+    //Converter uma entidade User para um UserDTO, expondo apenas os campos necessários
     private UserDTO convertToDTO(User user) {
         return new UserDTO(user.getId(), user.getName(), user.getEmail(), user.getCpf());
     }
