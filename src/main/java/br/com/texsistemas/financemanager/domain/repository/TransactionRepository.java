@@ -11,6 +11,10 @@ import java.util.UUID;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, UUID> {
 
+    //Busca todas as transações.
+    @Transactional(readOnly = true)
+    List<Transaction> findAll();
+
     //Busca todas as transações associadas a uma determinada conta.
     @Transactional(readOnly = true)
     List<Transaction> findByAccountId(UUID accountId);
