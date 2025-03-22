@@ -47,20 +47,24 @@ public class UserController {
     public ResponseEntity<?> save(@Valid @RequestBody User user) {
         try {
             UserDTO savedUser = userService.save(user);
-            return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                    .path("/{id}")
+                    .buildAndExpand(savedUser.id())
+                    .toUri();
+            return ResponseEntity.created(uri).body(savedUser);
         } catch (BusinessException e) {
-            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST); // Or a more specific error DTO
+            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable UUID id, @Valid @RequestBody User user) {
+    public ResponseEntity<?> update(@PathVariable UUID id, @Valid @RequestBody User user) {
         try {
             UserDTO updatedUser = userService.update(id, user);
             return ResponseEntity.ok(updatedUser);
         } catch (BusinessException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Or a more specific error DTO
-        } catch (RuntimeException e) { // Catch any other potential exceptions
+            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -71,7 +75,7 @@ public class UserController {
             userService.delete(id);
             return ResponseEntity.noContent().build();
         } catch (BusinessException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Or a more specific error DTO
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }

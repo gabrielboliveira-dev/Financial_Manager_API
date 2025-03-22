@@ -8,12 +8,10 @@ public record TransactionDTO(
         UUID id,
         UUID accountId,
         UUID categoryId,
-        UUID userId,
         String description,
         BigDecimal value,
         LocalDateTime date,
         String type,
-        String status,
-        BigDecimal interestOrDiscount
+        String status
 ) {
 }
