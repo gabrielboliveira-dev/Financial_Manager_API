@@ -6,8 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+		<relativePath/> </parent>
 	<groupId>br.com.texsistemas</groupId>
 	<artifactId>financemanager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -20,62 +19,33 @@
 	</properties>
 
 	<dependencies>
-		<!-- Spring Boot Starters -->
-		<!-- Spring Boot starter-web para a aplicação funcionar via Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- Spring Boot starter-data-jpa para inicializar o banco de dados -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<!-- Spring Boot starter-validation para validar os formulários e os DTOs -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-		<!-- Spring Boot starter-security para garantir a segurança dos dados bancários  -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<!-- Spring Boot starter-thymeleaf para uma futura implementação do view  -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
 
-		<!-- Banco de Dados -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Para testes locais sem precisar de um PostgreSQL rodando -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- Caso haja futuras migrações -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 
-		<!-- Lombok para evitar escrever getters e os setters -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		<!-- MapStruct Para facilitar conversões entre entidades e DTOs -->
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok-mapstruct-binding</artifactId>
-			<version>0.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -83,13 +53,11 @@
 			<version>${mapstruct.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-processor</artifactId>
-			<version>${mapstruct.version}</version>
-			<scope>provided</scope>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok-mapstruct-binding</artifactId>
+			<version>0.2.0</version>
 		</dependency>
 
-		<!-- Testes, talvez eu precise para aprender a usar -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -99,6 +67,20 @@
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 	</dependencies>
 
