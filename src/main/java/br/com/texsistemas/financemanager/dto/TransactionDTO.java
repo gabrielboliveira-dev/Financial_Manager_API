@@ -3,16 +3,17 @@ package br.com.texsistemas.financemanager.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import java.util.Date;
 
 public record TransactionDTO(
         UUID id,
         UUID accountId,
         UUID categoryId,
+        UUID userId,
         String description,
-        Float value,
-        Date date,
+        BigDecimal value,
+        LocalDateTime date,
         String type,
-        String status
+        String status,
+        BigDecimal interestOrDiscount
 ) {
 }
