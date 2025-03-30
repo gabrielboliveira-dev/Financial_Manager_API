@@ -76,7 +76,7 @@ public class TransactionController {
                     .toUri();
             return ResponseEntity.created(uri).body(savedTransaction);
         } catch (BusinessException e) {
-            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage(), e.getErrorCode()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -86,7 +86,7 @@ public class TransactionController {
             TransactionDTO updatedTransaction = transactionService.updateStatus(id, newStatus);
             return ResponseEntity.ok(updatedTransaction);
         } catch (BusinessException e) {
-            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage(), e.getErrorCode()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -96,7 +96,7 @@ public class TransactionController {
             transactionService.delete(id);
             return ResponseEntity.noContent().build();
         } catch (BusinessException e) {
-            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage(), e.getErrorCode()), HttpStatus.BAD_REQUEST);
         }
     }
 }

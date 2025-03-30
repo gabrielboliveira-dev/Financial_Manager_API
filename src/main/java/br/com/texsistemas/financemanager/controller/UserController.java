@@ -53,7 +53,7 @@ public class UserController {
                     .toUri();
             return ResponseEntity.created(uri).body(savedUser);
         } catch (BusinessException e) {
-            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage(), e.getErrorCode()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -63,7 +63,7 @@ public class UserController {
             UserDTO updatedUser = userService.update(id, user);
             return ResponseEntity.ok(updatedUser);
         } catch (BusinessException e) {
-            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage(), e.getErrorCode()), HttpStatus.BAD_REQUEST);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
