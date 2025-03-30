@@ -1,12 +1,16 @@
 package br.com.texsistemas.financemanager.dto;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
-public record BudgetDTO(
+public record BudgetDTO (
         UUID id,
-        UUID userId,
-        UUID categoryId,
-        Float limit,
-        java.time.LocalDate dateStart,
-        java.time.LocalDate dateEnd
-) {}
+        String name,
+        String description,
+        LocalDate startDate,
+        LocalDate endDate,
+        BigDecimal amount,
+        UUID categoryId
+) {
+}
