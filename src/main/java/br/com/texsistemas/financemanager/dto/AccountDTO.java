@@ -1,11 +1,20 @@
 package br.com.texsistemas.financemanager.dto;
 
+import lombok.Data;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record AccountDTO(
-        UUID id,
-        String name,
-        String type,
-        java.math.BigDecimal openingBalance,
-        String coin
-) {}
+@Data
+public class AccountDTO {
+
+    private UUID id;
+    private String accountNumber;
+    private String agencyNumber;
+    private String accountName;
+    private String accountType;
+    private BigDecimal balance;
+    private LocalDateTime creationDate;
+    private UUID userId;
+}
