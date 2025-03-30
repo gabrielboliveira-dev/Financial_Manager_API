@@ -32,7 +32,7 @@ public class AccountController {
             AccountDTO accountDTO = convertToDTO(createdAccount);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                     .path("/{id}")
-                    .buildAndExpand(accountDTO.getId())
+                    .buildAndExpand(accountDTO.id())
                     .toUri();
             return ResponseEntity.created(uri).body(accountDTO);
         } catch (BusinessException e) {
