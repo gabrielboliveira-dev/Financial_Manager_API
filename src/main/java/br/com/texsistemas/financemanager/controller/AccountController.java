@@ -56,7 +56,7 @@ public class AccountController {
                     .collect(Collectors.toList());
             return ResponseEntity.ok(accountDTOs);
         } catch (BusinessException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // Retorna apenas o status NOT_FOUND
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

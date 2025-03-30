@@ -46,10 +46,14 @@ public class BudgetController {
     @GetMapping("/{id}")
     public ResponseEntity<BudgetDTO> getBudgetById(@PathVariable UUID id) {
         Optional<Budget> budgetOptional = budgetService.getBudgetById(id);
-        return budgetOptional.map(budget -> new BudgetDTO(budget.getId(), budget.getName(), budget.getDescription(),
-                        budget.getStartDate(), budget.getEndDate(), budget.getAmount(),
-                        budget.getCategory() != null ? budget.getCategory().getId() : null))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (budgetOptional.isPresent()) {
+            BudgetDTO budgetDTO = new BudgetDTO(budgetOptional.get().getId(), budgetOptional.get().getName(), budgetOptional.get().getDescription(),
+                    budgetOptional.get().getStartDate(), budgetOptional.get().getEndDate(), budgetOptional.get().getAmount(),
+                    budgetOptional.get().getCategory() != null ? budgetOptional.get().getCategory().getId() : null);
+            return ResponseEntity.ok(budgetDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/users/{userId}")

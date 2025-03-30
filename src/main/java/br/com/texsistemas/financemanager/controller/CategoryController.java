@@ -43,8 +43,12 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable UUID id) {
         Optional<Category> categoryOptional = categoryService.getCategoryById(id);
-        return categoryOptional.map(category -> new CategoryDTO(category.getId(), category.getName(), category.getDescription()))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (categoryOptional.isPresent()) {
+            CategoryDTO categoryDTO = new CategoryDTO(categoryOptional.get().getId(), categoryOptional.get().getName(), categoryOptional.get().getDescription());
+            return ResponseEntity.ok(categoryDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/users/{userId}")
