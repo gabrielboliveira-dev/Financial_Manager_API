@@ -15,5 +15,5 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
     List<Account> findByUserId(UUID userId);
 
     @Transactional(readOnly = true)
-    List<Account> findByType(String type);
+    List<Account> findByUser_IdAndAccountType(UUID userId, String accountType);
 }
