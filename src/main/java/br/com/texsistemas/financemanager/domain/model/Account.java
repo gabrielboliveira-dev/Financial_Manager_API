@@ -1,5 +1,6 @@
 package br.com.texsistemas.financemanager.domain.model;
 
+import br.com.texsistemas.financemanager.dto.AccountDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,4 +40,17 @@ public class Account {
     @CreationTimestamp
     @Column(name = "creation_date", nullable = false, updatable = false)
     private LocalDateTime creationDate;
+
+    public static AccountDTO convertToDTO(Account account) {
+        return new AccountDTO(
+                account.getId(),
+                account.getAccountNumber(),
+                account.getAgencyNumber(),
+                account.getAccountName(),
+                account.getAccountType(),
+                account.getBalance(),
+                account.getCreationDate(),
+                account.getUser().getId()
+        );
+    }
 }

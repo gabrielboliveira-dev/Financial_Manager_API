@@ -29,7 +29,7 @@ public class AccountController {
     public ResponseEntity<?> createAccount(@PathVariable UUID userId, @Valid @RequestBody Account account) {
         try {
             Account createdAccount = accountService.createAccount(account, userId);
-            AccountDTO accountDTO = convertToDTO(createdAccount);
+            AccountDTO accountDTO = Account.convertToDTO(createdAccount);
             URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                     .path("/{id}")
                     .buildAndExpand(accountDTO.id())
@@ -43,7 +43,7 @@ public class AccountController {
     @GetMapping("/{id}")
     public ResponseEntity<AccountDTO> getAccountById(@PathVariable UUID id) {
         Optional<Account> accountOptional = accountService.getAccountById(id);
-        return accountOptional.map(account -> ResponseEntity.ok(convertToDTO(account)))
+        return accountOptional.map(account -> ResponseEntity.ok(Account.convertToDTO(account)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -52,7 +52,7 @@ public class AccountController {
         try {
             List<Account> accounts = accountService.getAccountsByUser(userId);
             List<AccountDTO> accountDTOs = accounts.stream()
-                    .map(this::convertToDTO)
+                    .map(Account::convertToDTO)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(accountDTOs);
         } catch (BusinessException e) {
@@ -65,7 +65,7 @@ public class AccountController {
         try {
             List<Account> accounts = accountService.getAccountsByType(userId, type);
             List<AccountDTO> accountDTOs = accounts.stream()
-                    .map(this::convertToDTO)
+                    .map(Account::convertToDTO)
                     .collect(Collectors.toList());
             return ResponseEntity.ok(accountDTOs);
         } catch (BusinessException e) {
@@ -82,7 +82,7 @@ public class AccountController {
             }
             accountDetails.setId(id);
             Account updatedAccount = accountService.updateAccount(id, accountDetails);
-            return ResponseEntity.ok(convertToDTO(updatedAccount));
+            return ResponseEntity.ok(Account.convertToDTO(updatedAccount));
         } catch (BusinessException e) {
             return new ResponseEntity<>(new ErrorMessage(HttpStatus.BAD_REQUEST.value(), e.getMessage(), e.getErrorCode()), HttpStatus.BAD_REQUEST);
         }
@@ -96,18 +96,5 @@ public class AccountController {
         } catch (BusinessException e) {
             return new ResponseEntity<>(new ErrorMessage(HttpStatus.NOT_FOUND.value(), e.getMessage(), e.getErrorCode()), HttpStatus.NOT_FOUND);
         }
-    }
-
-    private AccountDTO convertToDTO(Account account) {
-        return new AccountDTO(
-                account.getId(),
-                account.getAccountNumber(),
-                account.getAgencyNumber(),
-                account.getAccountName(),
-                account.getAccountType(),
-                account.getBalance(),
-                account.getCreationDate(),
-                account.getUser().getId()
-        );
     }
 }

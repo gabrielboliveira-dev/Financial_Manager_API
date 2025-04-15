@@ -1,5 +1,7 @@
 package br.com.texsistemas.financemanager.domain.model;
 
+import br.com.texsistemas.financemanager.dto.AccountDTO;
+import br.com.texsistemas.financemanager.dto.BudgetDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -41,4 +43,16 @@ public class Budget {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public static BudgetDTO convertToDTO(Budget budget) {
+        return new BudgetDTO(
+                budget.getId(),
+                budget.getName(),
+                budget.getDescription(),
+                budget.getStartDate(),
+                budget.getEndDate(),
+                budget.getAmount(),
+                budget.getCategory() != null ? budget.getCategory().getId() : null
+        );
+    }
 }
