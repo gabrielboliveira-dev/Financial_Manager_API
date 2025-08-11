@@ -1,123 +1,91 @@
-# Gerenciador de Finanças
+# Financial Manager API
 
-## Descrição
+### Descrição do Projeto
 
-O **Gerenciador de Finanças** é um sistema desenvolvido em **Java** utilizando **Spring Boot** para auxiliar no controle financeiro pessoal. O sistema permite cadastrar usuários, contas, orçamentos, categorias de despesas e transações, proporcionando uma visão clara da saúde financeira do usuário.
+Este projeto é uma API RESTful para um sistema de gerenciamento financeiro pessoal. Desenvolvido com **Spring Boot 3**, ele segue os princípios de **Arquitetura Limpa**, **SOLID** e **Clean Code** para garantir uma base de código robusta, testável e de fácil manutenção. A aplicação gerencia usuários, contas, orçamentos, categorias e transações.
 
----
+Como um diferencial, a interface principal para interação com o usuário final é um **bot do Telegram**, que permite a realização de tarefas rápidas e o acesso a resumos financeiros sem a necessidade de um front-end web ou mobile tradicional.
 
-## Tecnologias Utilizadas
+-----
 
-- **Java 17**
-- **Spring Boot 3.4.1**
-- **Spring Data JPA**
-- **Spring Web**
-- **Spring Boot DevTools**
-- **Flyway Migration**
-- **PostgreSQL**
-- **Lombok**
-- **MapStruct**
-- **Thymeleaf**
+### Funcionalidades
 
----
+  * **Gestão de Usuários**: CRUD (Create, Read, Update, Deactivate) para usuários com validação de CPF e e-mail.
+  * **Gestão de Contas**: Permite criar, listar e gerenciar múltiplas contas financeiras por usuário.
+  * **Gestão de Transações**: Registro detalhado de receitas e despesas, com associação a contas e categorias.
+  * **Gestão de Categorias**: Criação e gestão de categorias personalizadas por usuário.
+  * **Gestão de Orçamentos**: Permite definir orçamentos por categoria para acompanhar e controlar gastos.
+  * **Autenticação JWT**: Acesso seguro aos endpoints da API através de tokens JWT (JSON Web Token).
+  * **Interface via Bot do Telegram**: Interação principal com o usuário através de um bot de chat para comandos de gerenciamento e acesso a resumos.
 
-## Estrutura do Projeto
+-----
 
+### Arquitetura e Princípios de Design
+
+O projeto é construído com base nos princípios da **Arquitetura Limpa**, organizando o código em camadas concêntricas que garantem a separação de responsabilidades e a independência da infraestrutura.
+
+  - **Camada Core/Domínio**: Contém as entidades (`User`, `Transaction`, `Account`, etc.), as interfaces de repositório e a lógica de negócio mais importante.
+  - **Camada de Infraestrutura**: Inclui as implementações de repositório (com Spring Data JPA e Hibernate), a conexão com o banco de dados PostgreSQL, as migrations do Flyway e a integração com APIs externas (como a API do Telegram).
+  - **Camada de Apresentação**: É a interface com o mundo exterior. Inclui os `Controllers` da API REST e a lógica do bot do Telegram.
+
+-----
+
+### Tecnologias Utilizadas
+
+  * **Linguagem**: Java 17
+  * **Framework**: Spring Boot 3
+  * **Banco de Dados**: PostgreSQL, Flyway (migrations)
+  * **Persistência**: Spring Data JPA, Hibernate
+  * **Autenticação**: Spring Security, Java JWT (jjwt)
+  * **Ferramentas de Build**: Maven
+  * **Bibliotecas**: Lombok, MapStruct
+  * **Testes**: JUnit 5, Mockito, MockMvc, Testcontainers
+  * **Interface**: API do Telegram (para o bot)
+  * **Documentação**: Springdoc OpenAPI (Swagger UI)
+
+-----
+
+### Como Começar
+
+Siga os passos para configurar e executar a aplicação localmente:
+
+**Pré-requisitos:**
+
+  * Java 17 JDK
+  * Maven
+  * Docker (para o PostgreSQL e Testcontainers)
+  * Uma conta no Telegram (para testar o bot)
+
+**Configuração do Ambiente:**
+
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/seu-usuario/seu-projeto.git
+    cd seu-projeto
+    ```
+2.  **Configurar o Banco de Dados:**
+      * Inicie um contêiner Docker para o PostgreSQL.
+      * Crie um banco de dados e um usuário.
+      * Configure as credenciais no arquivo `src/main/resources/application.properties`.
+    <!-- end list -->
+    ```properties
+    spring.datasource.url=jdbc:postgresql://localhost:5432/financemanager
+    spring.datasource.username=financemanager_user
+    spring.datasource.password=sua_senha
+    ```
+3.  **Configurar o Bot do Telegram:**
+      * Crie um bot usando o **BotFather** no Telegram e obtenha o token de acesso.
+      * Adicione o token ao `application.properties`.
+    <!-- end list -->
+    ```properties
+    telegram.bot.token=SEU_TOKEN_DO_BOT
+    ```
+
+**Executando a Aplicação:**
+Execute a aplicação com o Maven:
+
+```bash
+mvn spring-boot:run
 ```
-financemanager/
-├── src/
-│   ├── main/java/br/com/texsistemas/financemanager/
-│   │   ├── controller/      # Controladores REST
-│   │   ├── domain/
-│   │   │   ├── model/       # Entidades do banco de dados
-│   │   │   ├── repository/  # Interfaces JPA
-│   │   │   ├── service/     # Regras de negócio e serviços
-│   │   │   ├── DTO/         # Objetos de Transferência de Dados
-│   │   ├── application.properties # Configuração do banco de dados
-│   ├── test/java/br/com/texsistemas/financemanager/ # Testes unitários
-├── pom.xml  # Configurações e dependências do Maven
-└── README.md
-```
 
----
-
-## Configuração do Banco de Dados
-
-O projeto utiliza **PostgreSQL**. Configure seu `application.properties` com as credenciais corretas:
-
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/financemanager
-spring.datasource.username=gabrielboliveira
-spring.datasource.password=123456
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-```
-
----
-
-## Como Executar o Projeto
-
-1. Clone este repositório:
-   ```sh
-   git clone https://github.com/Gabriel-Oliveiraa/financemanager.git
-   ```
-2. Acesse a pasta do projeto:
-   ```sh
-   cd financemanager
-   ```
-3. Compile e execute o projeto com Maven:
-   ```sh
-   mvn spring-boot:run
-   ```
-4. O sistema estará disponível em:
-   ```
-   http://localhost:8080
-   ```
-
----
-
-## Endpoints Disponíveis
-
-- `POST /usuarios` - Cadastra um novo usuário
-- `GET /usuarios/{id}` - Obtém um usuário por ID
-- `POST /transacoes` - Registra uma nova transação
-- `GET /transacoes` - Lista todas as transações
-- `POST /categorias` - Cadastra uma nova categoria
-- `GET /categorias` - Lista todas as categorias
-
----
-
-## Melhorias Futuras
-
-- Implementação de autenticação e autorização
-- Testes unitários e de integração
-- Dashboard para visualização dos gastos
-- Notificações e lembretes financeiros
-
----
-
-## Contribuição
-
-Contribuições são bem-vindas! Siga os passos abaixo:
-
-1. Fork o repositório
-2. Crie um branch para sua funcionalidade:
-   ```sh
-   git checkout -b minha-nova-funcionalidade
-   ```
-3. Commit suas alterações:
-   ```sh
-   git commit -m "Adicionando nova funcionalidade"
-   ```
-4. Envie para o repositório:
-   ```sh
-   git push origin minha-nova-funcionalidade
-   ```
-5. Abra um Pull Request
-
----
-
-## Autor
-
-Projeto desenvolvido por **Gabriel Oliveira** 🚀
-
+A API estará disponível em `http://localhost:8080` e a documentação do Swagger UI poderá ser acessada em `http://localhost:8080/swagger-ui.html`. O bot do Telegram estará online para receber comandos.
