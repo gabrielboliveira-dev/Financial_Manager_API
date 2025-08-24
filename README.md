@@ -2,15 +2,15 @@
 
 ### Sumário
 
-  * [Descrição do Projeto](https://www.google.com/search?q=%23descri%C3%A7%C3%A3o-do-projeto)
-  * [Principais Funcionalidades](https://www.google.com/search?q=%23principais-funcionalidades)
-  * [Stack Tecnológico](https://www.google.com/search?q=%23stack-tecnol%C3%B3gico)
-  * [Arquitetura](https://www.google.com/search?q=%23arquitetura)
-  * [Como Começar](https://www.google.com/search?q=%23como-come%C3%A7ar)
-  * [Uso da API RESTful](https://www.google.com/search?q=%23uso-da-api-restful)
-  * [Roteiro de Desenvolvimento (Roadmap)](https://www.google.com/search?q=%23roteiro-de-desenvolvimento-roadmap)
-  * [Como Contribuir](https://www.google.com/search?q=%23como-contribuir)
-  * [Licença](https://www.google.com/search?q=%23licen%C3%A7a)
+  * [Descrição do Projeto]
+  * [Principais Funcionalidades]
+  * [Stack Tecnológico]
+  * [Arquitetura]
+  * [Como Começar]
+  * [Uso da API RESTful]
+  * [Roteiro de Desenvolvimento (Roadmap)]
+  * [Como Contribuir]
+  * [Licença]
 
 -----
 
