@@ -22,28 +22,28 @@ O grande diferencial do FinanBot é sua capacidade de transformar a gestão fina
 
 ### Principais Funcionalidades
 
-#### 🤖 Interação Inteligente via Telegram
+#### Interação Inteligente via Telegram
 
   * **Registro Conversacional (NLU):** Adicione despesas e receitas usando linguagem natural. Ex: *"gastei 55,90 no almoço com o cartão do Itaú"*.
   * **Comandos e Teclados Interativos:** Use comandos (`/resumo`, `/metas`) e botões para uma navegação rápida e intuitiva.
   * **Alertas Proativos:** Receba notificações sobre o fechamento da fatura do cartão, proximidade de atingir um orçamento ou lembretes de contas a pagar.
 
-#### ⚙️ Automação e Praticidade
+#### Automação e Praticidade
 
   * **Leitor de QR Code de Nota Fiscal (NFC-e):** Envie a foto do QR Code de uma nota fiscal e o FinanBot extrai e registra a compra automaticamente.
   * **Detecção de Despesas Recorrentes:** O bot identifica assinaturas e contas mensais e sugere o cadastro automático.
 
-#### 📈 Planejamento e Visão de Futuro
+#### Planejamento e Visão de Futuro
 
   * **Módulo de Metas:** Crie objetivos financeiros (ex: "Viagem", "Entrada do Apartamento"), defina prazos e valores, e acompanhe seu progresso.
   * **Previsão de Fluxo de Caixa:** Com base no seu histórico, o bot projeta seu saldo futuro para evitar surpresas no fim do mês.
   * **Orçamentos Inteligentes:** Defina orçamentos por categoria e receba insights sobre onde você pode economizar.
 
-#### 👥 Finanças Colaborativas
+#### Finanças Colaborativas
 
   * **Gestão de Grupos ("Rachadinha Inteligente"):** Crie grupos para viagens ou eventos, registre despesas compartilhadas e o bot calcula quem deve quanto para quem ao final.
 
-#### 📊 Visão 360° do Patrimônio
+#### Visão 360° do Patrimônio
 
   * **Múltiplas Contas:** Gerencie diversas contas (corrente, poupança, carteira, cartões de crédito) em um só lugar.
   * **Consolidação de Investimentos:** Adicione seus ativos (Ações, FIIs, Cripto) e acompanhe a rentabilidade e a evolução do seu patrimônio total.
@@ -122,9 +122,7 @@ Após a inicialização, a API RESTful estará disponível em `http://localhost:
 A documentação interativa da API (Swagger UI), gerada pelo Springdoc, pode ser acessada em:
 **[http://localhost:8080/swagger-ui.html](https://www.google.com/search?q=http://localhost:8080/swagger-ui.html)**
 
-### Roteiro de Desenvolvimento (Roadmap)
-
-#### ⭐ Melhoria Futura: Conexão com Open Finance
+### ⭐ Melhoria Futura: Conexão com Open Finance
 
 A integração com o Open Finance Brasil é a **visão de longo prazo** e o recurso mais poderoso do roadmap do FinanBot. Ele permitirá a importação e categorização automática de transações diretamente das suas contas bancárias.
 
